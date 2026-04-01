@@ -288,11 +288,47 @@ def main():
         # Now returns instantly from cache after first call.
         status = call_status()
 
+
         if status.get("vectorstore_ready"):
             st.success("✅ Knowledge base ready")
         else:
             st.error("❌ Knowledge base not ready")
-            st.warning("Please run ingestion first")
+            st.warning("Please upload PDFs and run ingestion.")
+
+            # File uploader for PDFs
+            uploaded_files = st.file_uploader(
+                "Upload PDF files for ingestion",
+                type=["pdf"],
+                accept_multiple_files=True,
+                key="pdf_uploader",
+            )
+
+            # Save uploaded files to a temp directory
+            import tempfile, shutil
+            temp_dir = tempfile.mkdtemp()
+            pdf_paths = []
+            if uploaded_files:
+                for uploaded_file in uploaded_files:
+                    file_path = f"{temp_dir}/{uploaded_file.name}"
+                    with open(file_path, "wb") as f:
+                        f.write(uploaded_file.getbuffer())
+                    pdf_paths.append(file_path)
+
+            # Ingest button
+            if st.button("Run Ingestion", type="primary", use_container_width=True, disabled=not pdf_paths):
+                # Send files to backend ingestion endpoint
+                with st.spinner("Ingesting PDFs and building knowledge base..."):
+                    files = [("files", (open(path, "rb"))) for path in pdf_paths]
+                    try:
+                        response = requests.post(f"{API_URL}/ingest", files=files, timeout=600)
+                        if response.status_code == 200:
+                            st.success("Ingestion complete! Reloading...")
+                            st.cache_data.clear()
+                            st.rerun()
+                        else:
+                            st.error(f"Ingestion failed: {response.text}")
+                    except Exception as e:
+                        st.error(f"Ingestion error: {e}")
             st.stop()
 
         st.divider()
