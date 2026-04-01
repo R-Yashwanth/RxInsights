@@ -1,0 +1,10 @@
+ENTRESTO- sacubitril and valsartan tablet, film co -> pg1: Novartis Pharmaceuticals Corporation
+OPDIVO- nivolumab injection -> pg5: To report SUSPECTED ADVERSE REACTIONS, contact Bristol-Myers Squibb at 1-800-721
+FARXIGA- dapagliflozin tablet, film coated -> pg1: AstraZeneca Pharmaceuticals LP
+BRILINTA- ticagrelor tablet -> pg1: AstraZeneca Pharmaceuticals LP
+JARDIANCE- empagliflozin tablet, film coated -> pg1: Boehringer Ingelheim Pharmaceuticals, Inc.
+HUMIRA- adalimumab -> pg1: AbbVie Inc.
+OZEMPIC- oral semaglutide tablet -> pg35: Marketed by:
+DUPIXENT- dupilumab injection, solution -> pg1: sanofi-aventis U.S. LLC
+KEYTRUDA- pembrolizumab injection, powder, lyophil -> pg1: Merck Sharp & Dohme LLC
+TRULICITY- dulaglutide injection, solution -> pg1: Eli Lilly and Company

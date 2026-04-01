@@ -1,0 +1,55 @@
+{
+    "_comment": "Pharma RAG configuration — no drug names hardcoded here",
+    "_note": "Drug names and generic names extracted from PDFs and stored in Chroma automatically",
+
+    "comparison_keywords": [
+        "vs",
+        "versus",
+        "compare",
+        "comparison",
+        "difference",
+        "better",
+        "between",
+        "which is",
+        "what is the difference",
+        "how does",
+        "differ"
+    ],
+
+    "section_keywords": {
+        "dosage": [
+            "dose",
+            "dosage",
+            "how much",
+            "mg",
+            "milligram",
+            "administration",
+            "how to take",
+            "frequency"
+        ],
+        "adverse": [
+            "side effect",
+            "adverse",
+            "warning",
+            "risk",
+            "danger",
+            "precaution",
+            "contraindication"
+        ],
+        "indication": [
+            "used for",
+            "indicated",
+            "treat",
+            "indication",
+            "condition",
+            "disease"
+        ],
+        "interaction": [
+            "interaction",
+            "combine",
+            "together",
+            "drug interaction",
+            "mixed with"
+        ]
+    }
+}

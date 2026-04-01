@@ -1,0 +1,639 @@
+﻿backend\__init__.py:7:80: W292 no newline at end of file
+backend\ingestion\__init__.py:49:2: W292 no newline at end of file
+backend\ingestion\chunker.py:62:23: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:62:25: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:66:25: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:66:27: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:71:26: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:71:28: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:79:80: E501 line too long (80 > 79 characters)
+backend\ingestion\chunker.py:126:23: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:126:25: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:130:38: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:130:40: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:130:80: E501 line too long (82 > 79 characters)
+backend\ingestion\chunker.py:136:40: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:136:42: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:136:80: E501 line too long (86 > 79 characters)
+backend\ingestion\chunker.py:154:13: E203 whitespace before ':'
+backend\ingestion\chunker.py:155:13: E203 whitespace before ':'
+backend\ingestion\chunker.py:177:18: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:177:18: E221 multiple spaces before operator
+backend\ingestion\chunker.py:177:24: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:178:22: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:178:24: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\chunker.py:291:80: E501 line too long (84 > 79 characters)
+backend\ingestion\chunker.py:292:80: E501 line too long (84 > 79 characters)
+backend\ingestion\chunker.py:299:17: F541 f-string is missing placeholders
+backend\ingestion\chunker.py:310:22: W292 no newline at end of file
+backend\ingestion\embedder.py:66:23: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:66:25: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:69:25: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:69:27: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:74:26: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:74:28: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:82:80: E501 line too long (80 > 79 characters)
+backend\ingestion\embedder.py:147:26: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:147:28: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:150:26: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:150:28: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:153:32: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:153:34: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:158:34: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:158:36: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:162:21: F541 f-string is missing placeholders
+backend\ingestion\embedder.py:164:80: E501 line too long (85 > 79 characters)
+backend\ingestion\embedder.py:227:28: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:227:28: E221 multiple spaces before operator
+backend\ingestion\embedder.py:227:32: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:228:32: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:229:30: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:229:32: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\embedder.py:236:21: F541 f-string is missing placeholders
+backend\ingestion\embedder.py:276:80: E501 line too long (81 > 79 characters)
+backend\ingestion\embedder.py:316:21: W292 no newline at end of file
+backend\ingestion\pdf_loader.py:113:19: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:114:13: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:163:1: W293 blank line contains whitespace
+backend\ingestion\pdf_loader.py:188:19: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:189:13: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:202:80: E501 line too long (119 > 79 characters)
+backend\ingestion\pdf_loader.py:223:1: E303 too many blank lines (3)
+backend\ingestion\pdf_loader.py:227:1: E302 expected 2 blank lines, found 3
+backend\ingestion\pdf_loader.py:228:16: E203 whitespace before ':'
+backend\ingestion\pdf_loader.py:229:16: E203 whitespace before ':'
+backend\ingestion\pdf_loader.py:230:16: E203 whitespace before ':'
+backend\ingestion\pdf_loader.py:232:16: E203 whitespace before ':'
+backend\ingestion\pdf_loader.py:243:22: E203 whitespace before ':'
+backend\ingestion\pdf_loader.py:244:22: E203 whitespace before ':'
+backend\ingestion\pdf_loader.py:246:22: E203 whitespace before ':'
+backend\ingestion\pdf_loader.py:247:22: E203 whitespace before ':'
+backend\ingestion\pdf_loader.py:248:22: E203 whitespace before ':'
+backend\ingestion\pdf_loader.py:279:14: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:284:80: E501 line too long (99 > 79 characters)
+backend\ingestion\pdf_loader.py:289:80: E501 line too long (81 > 79 characters)
+backend\ingestion\pdf_loader.py:309:17: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:313:18: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:326:25: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:326:25: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:326:31: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:327:25: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:327:25: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:327:31: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:328:26: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:328:26: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:328:31: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:329:29: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:329:31: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:330:27: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:330:27: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:330:31: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:335:29: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:335:31: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:336:25: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:336:25: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:336:31: E251 unexpected spaces around keyword / parameter equals
+backend\ingestion\pdf_loader.py:382:12: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:384:11: E221 multiple spaces before operator
+backend\ingestion\pdf_loader.py:404:17: F541 f-string is missing placeholders
+backend\ingestion\pdf_loader.py:415:20: W292 no newline at end of file
+backend\main.py:25:10: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:25:10: E221 multiple spaces before operator
+backend\main.py:25:18: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:26:16: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:26:18: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:30:12: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:30:12: E221 multiple spaces before operator
+backend\main.py:30:15: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:31:13: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:31:15: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:32:15: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:42:18: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:42:18: E221 multiple spaces before operator
+backend\main.py:42:24: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:43:22: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:43:24: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:44:18: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:44:18: E221 multiple spaces before operator
+backend\main.py:44:24: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:45:18: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:45:18: E221 multiple spaces before operator
+backend\main.py:45:24: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:95:16: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:95:16: E221 multiple spaces before operator
+backend\main.py:95:22: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:96:20: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:96:22: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:97:19: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:97:19: E221 multiple spaces before operator
+backend\main.py:97:22: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:104:20: E203 whitespace before ':'
+backend\main.py:105:20: E203 whitespace before ':'
+backend\main.py:106:20: E203 whitespace before ':'
+backend\main.py:107:20: E203 whitespace before ':'
+backend\main.py:108:20: E203 whitespace before ':'
+backend\main.py:113:19: E203 whitespace before ':'
+backend\main.py:114:19: E203 whitespace before ':'
+backend\main.py:115:19: E203 whitespace before ':'
+backend\main.py:116:19: E203 whitespace before ':'
+backend\main.py:121:22: E203 whitespace before ':'
+backend\main.py:122:22: E203 whitespace before ':'
+backend\main.py:131:12: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:131:12: E221 multiple spaces before operator
+backend\main.py:131:18: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:132:16: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:132:18: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:138:17: E203 whitespace before ':'
+backend\main.py:139:17: E203 whitespace before ':'
+backend\main.py:141:17: E203 whitespace before ':'
+backend\main.py:147:19: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:147:21: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:148:12: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:148:12: E221 multiple spaces before operator
+backend\main.py:148:21: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:155:26: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:155:28: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:156:16: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:156:18: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:166:19: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:166:21: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:167:12: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:167:12: E221 multiple spaces before operator
+backend\main.py:167:21: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:175:19: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:175:19: E221 multiple spaces before operator
+backend\main.py:175:29: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:176:25: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:176:25: E221 multiple spaces before operator
+backend\main.py:176:29: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:177:27: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:177:29: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:178:20: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:178:20: E221 multiple spaces before operator
+backend\main.py:178:29: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:183:24: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:183:26: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:184:19: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:184:19: E221 multiple spaces before operator
+backend\main.py:184:26: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:190:19: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:190:21: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:191:12: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:191:12: E221 multiple spaces before operator
+backend\main.py:191:21: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:205:23: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:205:23: E221 multiple spaces before operator
+backend\main.py:205:27: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:206:25: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:206:27: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:209:19: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:209:19: E221 multiple spaces before operator
+backend\main.py:209:30: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:210:28: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:210:30: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:211:24: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:211:24: E221 multiple spaces before operator
+backend\main.py:211:30: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:212:24: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:212:24: E221 multiple spaces before operator
+backend\main.py:212:30: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:213:20: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:213:20: E221 multiple spaces before operator
+backend\main.py:213:30: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:221:24: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:221:26: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:222:19: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:222:19: E221 multiple spaces before operator
+backend\main.py:222:26: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:228:12: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:228:14: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:270:27: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:270:27: E221 multiple spaces before operator
+backend\main.py:270:31: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:271:29: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:271:31: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:285:19: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:285:21: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:291:12: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:291:14: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:309:17: E221 multiple spaces before operator
+backend\main.py:310:18: E221 multiple spaces before operator
+backend\main.py:315:22: E221 multiple spaces before operator
+backend\main.py:320:34: E203 whitespace before ':'
+backend\main.py:328:20: E203 whitespace before ':'
+backend\main.py:329:20: E203 whitespace before ':'
+backend\main.py:335:24: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:335:26: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:336:19: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:336:19: E221 multiple spaces before operator
+backend\main.py:336:26: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:351:13: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:351:13: E221 multiple spaces before operator
+backend\main.py:351:17: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:352:13: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:352:13: E221 multiple spaces before operator
+backend\main.py:352:17: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:353:15: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:353:17: E251 unexpected spaces around keyword / parameter equals
+backend\main.py:354:6: W292 no newline at end of file
+backend\pipeline\__init__.py:24:2: W292 no newline at end of file
+backend\pipeline\file_watcher.py:124:17: F541 f-string is missing placeholders
+backend\pipeline\file_watcher.py:130:28: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\file_watcher.py:130:28: E221 multiple spaces before operator
+backend\pipeline\file_watcher.py:130:33: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\file_watcher.py:131:31: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\file_watcher.py:131:33: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\file_watcher.py:132:30: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\file_watcher.py:132:30: E221 multiple spaces before operator
+backend\pipeline\file_watcher.py:132:33: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\file_watcher.py:145:80: E501 line too long (89 > 79 characters)
+backend\pipeline\file_watcher.py:181:80: E501 line too long (89 > 79 characters)
+backend\pipeline\file_watcher.py:191:80: E501 line too long (97 > 79 characters)
+backend\pipeline\file_watcher.py:195:80: E501 line too long (83 > 79 characters)
+backend\pipeline\file_watcher.py:223:80: E501 line too long (90 > 79 characters)
+backend\pipeline\rag_pipeline.py:61:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:61:36: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:62:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:63:16: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:64:5: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:65:12: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:66:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:66:34: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:67:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:67:24: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:68:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:68:35: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:88:80: E501 line too long (95 > 79 characters)
+backend\pipeline\rag_pipeline.py:89:80: E501 line too long (93 > 79 characters)
+backend\pipeline\rag_pipeline.py:92:80: E501 line too long (93 > 79 characters)
+backend\pipeline\rag_pipeline.py:100:80: E501 line too long (82 > 79 characters)
+backend\pipeline\rag_pipeline.py:104:80: E501 line too long (87 > 79 characters)
+backend\pipeline\rag_pipeline.py:118:80: E501 line too long (80 > 79 characters)
+backend\pipeline\rag_pipeline.py:145:80: E501 line too long (82 > 79 characters)
+backend\pipeline\rag_pipeline.py:187:80: E501 line too long (179 > 79 characters)
+backend\pipeline\rag_pipeline.py:188:80: E501 line too long (117 > 79 characters)
+backend\pipeline\rag_pipeline.py:189:80: E501 line too long (92 > 79 characters)
+backend\pipeline\rag_pipeline.py:244:1: E305 expected 2 blank lines after class or function definition, found 1
+backend\pipeline\rag_pipeline.py:244:80: E501 line too long (111 > 79 characters)
+backend\pipeline\rag_pipeline.py:245:80: E501 line too long (102 > 79 characters)
+backend\pipeline\rag_pipeline.py:246:80: E501 line too long (90 > 79 characters)
+backend\pipeline\rag_pipeline.py:283:5: F824 `global _drug_dictionary` is unused: name is never assigned in scope
+backend\pipeline\rag_pipeline.py:287:80: E501 line too long (87 > 79 characters)
+backend\pipeline\rag_pipeline.py:291:5: F824 `global _llm` is unused: name is never assigned in scope
+backend\pipeline\rag_pipeline.py:323:28: F541 f-string is missing placeholders
+backend\pipeline\rag_pipeline.py:323:80: E501 line too long (81 > 79 characters)
+backend\pipeline\rag_pipeline.py:329:26: F541 f-string is missing placeholders
+backend\pipeline\rag_pipeline.py:340:1: E303 too many blank lines (3)
+backend\pipeline\rag_pipeline.py:344:1: E302 expected 2 blank lines, found 3
+backend\pipeline\rag_pipeline.py:381:17: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:382:18: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:386:22: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:411:5: F824 `global _drug_dictionary` is unused: name is never assigned in scope
+backend\pipeline\rag_pipeline.py:416:13: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:431:5: F824 `global _config_data` is unused: name is never assigned in scope
+backend\pipeline\rag_pipeline.py:445:18: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:451:27: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:452:27: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:460:27: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:461:27: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:468:23: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:469:23: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:500:8: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:545:12: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:548:29: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:548:31: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:549:25: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:549:25: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:549:31: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:564:20: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:564:20: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:564:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:565:18: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:565:18: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:565:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:566:24: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:566:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:567:23: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:567:23: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:567:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:574:20: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:574:20: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:574:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:575:18: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:575:18: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:575:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:576:24: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:576:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:577:23: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:577:23: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:577:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:578:22: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:578:22: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:578:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:612:80: E501 line too long (84 > 79 characters)
+backend\pipeline\rag_pipeline.py:618:80: E501 line too long (95 > 79 characters)
+backend\pipeline\rag_pipeline.py:624:80: E501 line too long (123 > 79 characters)
+backend\pipeline\rag_pipeline.py:625:80: E501 line too long (133 > 79 characters)
+backend\pipeline\rag_pipeline.py:626:80: E501 line too long (105 > 79 characters)
+backend\pipeline\rag_pipeline.py:663:10: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:665:13: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:683:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:684:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:685:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:693:5: F824 `global _llm` is unused: name is never assigned in scope
+backend\pipeline\rag_pipeline.py:698:21: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:698:21: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:698:30: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:699:28: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:699:30: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:706:31: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:707:31: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:708:31: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:724:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:725:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:726:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:736:80: E501 line too long (81 > 79 characters)
+backend\pipeline\rag_pipeline.py:746:80: E501 line too long (82 > 79 characters)
+backend\pipeline\rag_pipeline.py:748:80: E501 line too long (80 > 79 characters)
+backend\pipeline\rag_pipeline.py:757:5: F824 `global _llm_stream` is unused: name is never assigned in scope
+backend\pipeline\rag_pipeline.py:762:21: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:762:21: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:762:30: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:763:28: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:763:30: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:770:27: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:771:27: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:772:27: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:807:5: F824 `global _response_cache` is unused: name is never assigned in scope
+backend\pipeline\rag_pipeline.py:820:80: E501 line too long (84 > 79 characters)
+backend\pipeline\rag_pipeline.py:827:80: E501 line too long (85 > 79 characters)
+backend\pipeline\rag_pipeline.py:846:5: F824 `global _response_cache` is unused: name is never assigned in scope
+backend\pipeline\rag_pipeline.py:861:17: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:862:15: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:863:20: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:865:17: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:866:9: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:867:16: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:871:24: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:872:24: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:874:24: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:886:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:887:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:919:30: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:920:30: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:921:30: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:922:30: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:923:30: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:930:30: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:931:30: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:932:30: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:933:30: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:934:30: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:953:24: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:953:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:954:22: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:954:22: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:954:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:955:24: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:955:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:956:24: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:956:26: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:964:18: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:964:18: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:964:24: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:965:22: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:965:24: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:969:80: E501 line too long (83 > 79 characters)
+backend\pipeline\rag_pipeline.py:971:80: E501 line too long (85 > 79 characters)
+backend\pipeline\rag_pipeline.py:973:18: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:973:18: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:973:24: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:995:13: F824 `global _drug_dictionary` is unused: name is never assigned in scope
+backend\pipeline\rag_pipeline.py:1003:80: E501 line too long (119 > 79 characters)
+backend\pipeline\rag_pipeline.py:1005:80: E501 line too long (119 > 79 characters)
+backend\pipeline\rag_pipeline.py:1007:80: E501 line too long (92 > 79 characters)
+backend\pipeline\rag_pipeline.py:1012:38: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1013:38: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1014:38: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1015:38: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1016:38: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1023:15: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:1024:21: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1024:21: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:1024:27: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1025:20: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1025:20: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:1025:27: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1026:25: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1026:27: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1036:26: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1037:26: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1038:26: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1039:26: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1040:26: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1055:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1056:17: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1092:20: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1092:22: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1093:18: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1093:18: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:1093:22: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1094:20: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1094:22: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1095:20: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1095:22: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1100:14: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1100:14: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:1100:20: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1101:18: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1101:20: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1107:14: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1107:14: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:1107:20: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1116:9: F824 `global _drug_dictionary` is unused: name is never assigned in scope
+backend\pipeline\rag_pipeline.py:1123:80: E501 line too long (124 > 79 characters)
+backend\pipeline\rag_pipeline.py:1124:80: E501 line too long (115 > 79 characters)
+backend\pipeline\rag_pipeline.py:1129:80: E501 line too long (81 > 79 characters)
+backend\pipeline\rag_pipeline.py:1139:17: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1139:17: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:1139:23: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1140:16: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1140:16: E221 multiple spaces before operator
+backend\pipeline\rag_pipeline.py:1140:23: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1141:21: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1141:23: E251 unexpected spaces around keyword / parameter equals
+backend\pipeline\rag_pipeline.py:1170:26: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1171:26: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1172:26: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1173:26: E203 whitespace before ':'
+backend\pipeline\rag_pipeline.py:1174:26: E203 whitespace before ':'
+backend\retrieval\__init__.py:35:2: W292 no newline at end of file
+backend\retrieval\hybrid_search.py:47:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:48:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:65:18: F541 f-string is missing placeholders
+backend\retrieval\hybrid_search.py:97:22: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:97:24: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:98:14: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:98:14: E221 multiple spaces before operator
+backend\retrieval\hybrid_search.py:98:24: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:114:1: E302 expected 2 blank lines, found 1
+backend\retrieval\hybrid_search.py:115:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:116:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:150:24: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:150:24: E221 multiple spaces before operator
+backend\retrieval\hybrid_search.py:150:28: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:151:26: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:151:28: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:169:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:170:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:171:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:189:19: E221 multiple spaces before operator
+backend\retrieval\hybrid_search.py:194:23: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:194:25: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:195:20: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:195:20: E221 multiple spaces before operator
+backend\retrieval\hybrid_search.py:195:25: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:214:1: E302 expected 2 blank lines, found 1
+backend\retrieval\hybrid_search.py:215:20: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:257:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:258:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:259:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:260:16: E203 whitespace before ':'
+backend\retrieval\hybrid_search.py:289:18: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:289:18: E221 multiple spaces before operator
+backend\retrieval\hybrid_search.py:289:22: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:290:20: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:290:22: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:291:20: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:291:22: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\hybrid_search.py:309:17: F541 f-string is missing placeholders
+backend\retrieval\reranker.py:73:23: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\reranker.py:73:25: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\reranker.py:78:23: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\reranker.py:78:25: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\reranker.py:96:14: E203 whitespace before ':'
+backend\retrieval\reranker.py:97:14: E203 whitespace before ':'
+backend\retrieval\reranker.py:98:14: E203 whitespace before ':'
+backend\retrieval\reranker.py:158:80: E501 line too long (87 > 79 characters)
+backend\retrieval\reranker.py:194:12: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\reranker.py:194:12: E221 multiple spaces before operator
+backend\retrieval\reranker.py:194:18: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\reranker.py:196:16: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\reranker.py:196:18: E251 unexpected spaces around keyword / parameter equals
+backend\retrieval\reranker.py:204:13: E221 multiple spaces before operator
+backend\retrieval\reranker.py:218:14: E203 whitespace before ':'
+backend\retrieval\reranker.py:219:14: E203 whitespace before ':'
+backend\retrieval\reranker.py:241:14: E203 whitespace before ':'
+backend\retrieval\reranker.py:318:17: F541 f-string is missing placeholders
+backend\utils\__init__.py:36:2: W292 no newline at end of file
+backend\utils\config.py:8:1: E302 expected 2 blank lines, found 1
+backend\utils\config.py:98:12: E203 whitespace before ':'
+backend\utils\config.py:98:80: E501 line too long (90 > 79 characters)
+backend\utils\config.py:99:12: E203 whitespace before ':'
+backend\utils\config.py:99:80: E501 line too long (100 > 79 characters)
+backend\utils\config.py:109:15: E203 whitespace before ':'
+backend\utils\config.py:109:80: E501 line too long (101 > 79 characters)
+backend\utils\config.py:118:20: E203 whitespace before ':'
+backend\utils\config.py:118:80: E501 line too long (116 > 79 characters)
+backend\utils\config.py:119:20: E203 whitespace before ':'
+backend\utils\config.py:119:80: E501 line too long (100 > 79 characters)
+backend\utils\config.py:126:80: E501 line too long (80 > 79 characters)
+backend\utils\config.py:127:80: E501 line too long (84 > 79 characters)
+backend\utils\config.py:129:32: E203 whitespace before ':'
+backend\utils\config.py:129:80: E501 line too long (122 > 79 characters)
+backend\utils\config.py:130:32: E203 whitespace before ':'
+backend\utils\config.py:130:80: E501 line too long (114 > 79 characters)
+backend\utils\config.py:143:22: E203 whitespace before ':'
+backend\utils\config.py:143:28: E221 multiple spaces before operator
+backend\utils\config.py:143:80: E501 line too long (84 > 79 characters)
+backend\utils\config.py:144:22: E203 whitespace before ':'
+backend\utils\config.py:144:80: E501 line too long (98 > 79 characters)
+backend\utils\config.py:145:22: E203 whitespace before ':'
+backend\utils\config.py:145:28: E221 multiple spaces before operator
+backend\utils\config.py:145:80: E501 line too long (89 > 79 characters)
+backend\utils\config.py:146:22: E203 whitespace before ':'
+backend\utils\config.py:146:80: E501 line too long (93 > 79 characters)
+backend\utils\config.py:147:22: E203 whitespace before ':'
+backend\utils\config.py:147:80: E501 line too long (97 > 79 characters)
+backend\utils\config.py:157:15: E203 whitespace before ':'
+backend\utils\config.py:157:80: E501 line too long (122 > 79 characters)
+backend\utils\config.py:167:11: E203 whitespace before ':'
+backend\utils\config.py:167:17: E221 multiple spaces before operator
+backend\utils\config.py:167:80: E501 line too long (82 > 79 characters)
+backend\utils\config.py:168:11: E203 whitespace before ':'
+backend\utils\config.py:168:17: E221 multiple spaces before operator
+backend\utils\config.py:169:11: E203 whitespace before ':'
+backend\utils\config.py:169:80: E501 line too long (80 > 79 characters)
+backend\utils\config.py:178:12: E203 whitespace before ':'
+backend\utils\config.py:178:80: E501 line too long (92 > 79 characters)
+backend\utils\config.py:181:1: E302 expected 2 blank lines, found 1
+backend\utils\config.py:192:17: E203 whitespace before ':'
+backend\utils\config.py:192:29: E221 multiple spaces before operator
+backend\utils\config.py:193:17: E203 whitespace before ':'
+backend\utils\config.py:193:35: E221 multiple spaces before operator
+backend\utils\config.py:194:17: E203 whitespace before ':'
+backend\utils\config.py:194:37: E221 multiple spaces before operator
+backend\utils\config.py:194:80: E501 line too long (80 > 79 characters)
+backend\utils\config.py:195:17: E203 whitespace before ':'
+backend\utils\config.py:195:34: E221 multiple spaces before operator
+backend\utils\config.py:196:17: E203 whitespace before ':'
+backend\utils\config.py:196:35: E221 multiple spaces before operator
+backend\utils\config.py:197:17: E203 whitespace before ':'
+backend\utils\config.py:197:34: E221 multiple spaces before operator
+backend\utils\config.py:198:17: E203 whitespace before ':'
+backend\utils\config.py:198:29: E221 multiple spaces before operator
+backend\utils\config.py:199:17: E203 whitespace before ':'
+backend\utils\config.py:199:30: E221 multiple spaces before operator
+backend\utils\config.py:201:1: E305 expected 2 blank lines after class or function definition, found 1
+backend\utils\config.py:201:18: W292 no newline at end of file
+backend\utils\helpers.py:129:13: E221 multiple spaces before operator
+backend\utils\helpers.py:161:18: E221 multiple spaces before operator
+backend\utils\helpers.py:162:16: E221 multiple spaces before operator
+backend\utils\helpers.py:183:26: E203 whitespace before ':'
+backend\utils\helpers.py:184:26: E203 whitespace before ':'
+backend\utils\helpers.py:210:80: E501 line too long (104 > 79 characters)
+backend\utils\helpers.py:212:80: E501 line too long (107 > 79 characters)
+backend\utils\helpers.py:247:24: E221 multiple spaces before operator
+backend\utils\helpers.py:248:21: E221 multiple spaces before operator
+backend\utils\helpers.py:259:80: E501 line too long (80 > 79 characters)
+backend\utils\helpers.py:375:16: W292 no newline at end of file
+backend\utils\logger.py:10:80: E501 line too long (85 > 79 characters)
+backend\utils\logger.py:55:18: W292 no newline at end of file
+frontend\app.py:60:1: E303 too many blank lines (3)
+frontend\app.py:91:1: E302 expected 2 blank lines, found 3
+frontend\app.py:97:20: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:97:22: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:135:20: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:135:22: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:139:5: F841 local variable 'e' is assigned to but never used
+frontend\app.py:148:17: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:148:17: E221 multiple spaces before operator
+frontend\app.py:148:22: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:149:30: E203 whitespace before ':'
+frontend\app.py:152:20: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:152:22: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:174:17: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:174:17: E221 multiple spaces before operator
+frontend\app.py:174:22: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:175:30: E203 whitespace before ':'
+frontend\app.py:178:19: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:178:19: E221 multiple spaces before operator
+frontend\app.py:178:22: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:179:20: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:179:22: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:212:9: E221 multiple spaces before operator
+frontend\app.py:240:19: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:240:21: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:241:18: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:241:18: E221 multiple spaces before operator
+frontend\app.py:241:21: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:242:15: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:242:15: E221 multiple spaces before operator
+frontend\app.py:242:21: E251 unexpected spaces around keyword / parameter equals
+frontend\app.py:342:18: E221 multiple spaces before operator
+frontend\app.py:408:21: E203 whitespace before ':'
+frontend\app.py:418:25: E203 whitespace before ':'
+frontend\app.py:429:80: E501 line too long (141 > 79 characters)
+frontend\app.py:433:25: E203 whitespace before ':'
+frontend\app.py:441:80: E501 line too long (80 > 79 characters)
+frontend\app.py:490:11: W292 no newline at end of file

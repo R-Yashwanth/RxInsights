@@ -1,0 +1,129 @@
+﻿F541 [*] f-string without any placeholders
+   --> backend\ingestion\chunker.py:299:17
+    |
+297 |     # Final summary
+298 |     logger.info("=" * 50)
+299 |     logger.info(f"Γ£é∩╕Å  Chunking Summary:")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^
+300 |     logger.info(f"   Total documents  : {len(documents)}")
+301 |     logger.info(f"   Total chunks     : {len(all_chunks)}")
+    |
+help: Remove extraneous `f` prefix
+
+F541 [*] f-string without any placeholders
+   --> backend\ingestion\embedder.py:162:21
+    |
+161 |         logger.info("=" * 50)
+162 |         logger.info(f"Γ£à Embedding Complete:")
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+163 |         logger.info(f"   Chunks embedded     : {len(chunks)}")
+164 |         logger.info(f"   Collection name     : {config.vectorstore.collection_name}")
+    |
+help: Remove extraneous `f` prefix
+
+F541 [*] f-string without any placeholders
+   --> backend\ingestion\embedder.py:236:21
+    |
+234 |         chunk_count = vectorstore._collection.count()
+235 |
+236 |         logger.info(f"Γ£à Chroma store loaded successfully")
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+237 |         logger.info(f"   Collection  : {config.vectorstore.collection_name}")
+238 |         logger.info(f"   Total chunks: {chunk_count}")
+    |
+help: Remove extraneous `f` prefix
+
+F541 [*] f-string without any placeholders
+   --> backend\ingestion\pdf_loader.py:404:17
+    |
+402 |     # Final summary
+403 |     logger.info("=" * 50)
+404 |     logger.info(f"≡ƒôä PDF Loading Summary:")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+405 |     logger.info(f"   Total PDFs attempted : {len(pdf_files)}")
+406 |     logger.info(f"   Successfully loaded  : {len(pdf_files) - len(failed)}")
+    |
+help: Remove extraneous `f` prefix
+
+F541 [*] f-string without any placeholders
+   --> backend\pipeline\file_watcher.py:124:17
+    |
+123 |     # Step 3: Add to existing vectorstore (APPEND, not replace)
+124 |     logger.info(f"  Embedding and adding to vectorstore...")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+125 |     embedding_model = load_embedding_model()
+126 |     persist_dir = str(Path(config.vectorstore.persist_dir))
+    |
+help: Remove extraneous `f` prefix
+
+F541 [*] f-string without any placeholders
+   --> backend\pipeline\rag_pipeline.py:323:28
+    |
+321 |         # Validate: rewritten should not be empty or too long
+322 |         if not rewritten or len(rewritten) > 300:
+323 |             logger.warning(f"Query rewrite produced bad output ΓÇö using original")
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+324 |             return query
+    |
+help: Remove extraneous `f` prefix
+
+F541 [*] f-string without any placeholders
+   --> backend\pipeline\rag_pipeline.py:329:26
+    |
+327 |             logger.info(f"≡ƒöä Query rewritten: '{query}' ΓåÆ '{rewritten}'")
+328 |         else:
+329 |             logger.debug(f"Query unchanged after rewrite")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+330 |
+331 |         return rewritten
+    |
+help: Remove extraneous `f` prefix
+
+F541 [*] f-string without any placeholders
+  --> backend\retrieval\hybrid_search.py:65:18
+   |
+63 |         BM25Retriever : configured keyword retriever
+64 |     """
+65 |     logger.debug(f"Building BM25 retriever...")
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+66 |
+67 |     try:
+   |
+help: Remove extraneous `f` prefix
+
+F541 [*] f-string without any placeholders
+   --> backend\retrieval\hybrid_search.py:309:17
+    |
+308 |     logger.info("=" * 50)
+309 |     logger.info(f"≡ƒöì Hybrid Search Summary:")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+310 |     logger.info(f"   Raw chunks    : {len(all_chunks)}")
+311 |     logger.info(f"   After dedup   : {len(unique_chunks)}")
+    |
+help: Remove extraneous `f` prefix
+
+F541 [*] f-string without any placeholders
+   --> backend\retrieval\reranker.py:318:17
+    |
+316 |     # Final summary
+317 |     logger.info("=" * 50)
+318 |     logger.info(f"≡ƒôè Reranking Summary:")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^
+319 |     logger.info(f"   Input chunks     : {len(documents)}")
+320 |     logger.info(f"   After threshold  : {len(filtered_docs)}")
+    |
+help: Remove extraneous `f` prefix
+
+F841 [*] Local variable `e` is assigned to but never used
+   --> frontend\app.py:139:25
+    |
+137 |         data = response.json()
+138 |         return data.get("drugs", [])
+139 |     except Exception as e:
+    |                         ^
+140 |         return []
+    |
+help: Remove assignment to unused variable `e`
+
+Found 11 errors.
+[*] 11 fixable with the `--fix` option.
