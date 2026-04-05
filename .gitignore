@@ -7,12 +7,10 @@ venv/
 .env.*
 # Streamlit
 .streamlit/secrets.toml
-# Data — PDFs are committed for Streamlit Cloud deployment
-# backend/data/  ← REMOVED: PDFs must be in git for deployment
-backend/vectorstore/
+# Data — PDFs and pre-built Brain are committed for instant startup on Streamlit Cloud
+# backend/data/  ← REMOVED: PDFs must be in git
+# backend/vectorstore/ ← REMOVED: Brain is now in git for instant load
 backend/logs/
-# Chroma DB
-backend/vectorstore/chroma_db/
 # OS
 .DS_Store
 Thumbs.db

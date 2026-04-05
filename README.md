@@ -67,43 +67,47 @@ Groq LLaMA 3.3 70B → Streaming Answer
 
 ## 🗂️ Project Structure
 
+```bash
 pharma-rag/
+├── app.py                      # Unified entry point & auto-ingester
+├── .env                        # API keys (never commit)
+├── .gitignore
+├── .python-version             # Forces Python 3.11 on Cloud
+├── runtime.txt                 # Forces Python 3.11 on Cloud
+├── requirements.txt            # Global dependencies
+├── README.md
 │
 ├── backend/
-│   ├── main.py                     ← FastAPI entry point
-│   ├── requirements.txt            ← dependencies
-│   ├── drug_config.json            ← comparison keywords config
+│   ├── main.py                 # FastAPI entry point
+│   ├── drug_config.json        # Comparison keywords config
 │   │
-│   ├── data/
-│   │   └── pdfs/                   ← drug PDF files (DailyMed)
+│   ├── data/                   # Drug PDF files (DailyMed)
+│   │   ├── jardiance.pdf
+│   │   └── ...
 │   │
 │   ├── ingestion/
-│   │   ├── pdf_loader.py           ← PyMuPDF loading + cleaning
-│   │   ├── chunker.py              ← SemanticChunker
-│   │   └── embedder.py             ← HuggingFace + Chroma storage
+│   │   ├── pdf_loader.py       # PyMuPDF loading + cleaning
+│   │   ├── chunker.py          # SemanticChunker
+│   │   └── embedder.py         # HuggingFace + Chroma storage
 │   │
 │   ├── retrieval/
-│   │   ├── hybrid_search.py        ← BM25 + Semantic + metadata filter
-│   │   ├── reranker.py             ← TinyBERT cross-encoder
-│   │   └── compressor.py           ← context compression (optional)
+│   │   ├── hybrid_search.py    # BM25 + Semantic + metadata filter
+│   │   └── reranker.py         # TinyBERT cross-encoder
 │   │
 │   ├── pipeline/
-│   │   └── rag_pipeline.py         ← full pipeline orchestration
+│   │   └── rag_pipeline.py     # Full pipeline orchestration
 │   │
-│   └── utils/
-│       ├── config.py               ← environment config
-│       ├── logger.py               ← production logging
-│       └── helpers.py              ← shared utilities
+│   ├── utils/
+│   │   ├── config.py           # Environment config
+│   │   ├── logger.py           # Production logging
+│   │   └── helpers.py          # Shared utilities
+│   │
+│   └── vectorstore/            # Persisted vector store
+│       └── chroma_db/
 │
-├── frontend/
-│   └── app.py                      ← Streamlit UI
-│
-├── vectorstore/
-│   └── chroma_db/                  ← persisted vector store
-│
-├── .env                            ← API keys (never commit)
-├── .gitignore
-└── README.md
+└── frontend/
+    └── app.py                  # Streamlit UI
+```
 
 ---
 
@@ -137,7 +141,7 @@ pip install -r requirements.txt
 ```
 
 ### 4. Configure Environment
-Create `backend/.env`:
+Create `.env` in the **root** folder:
 ```bash
 # LLM
 GROQ_API_KEY=your_groq_api_key_here
@@ -174,13 +178,13 @@ PDF_DIR=./data
 ```
 
 ### 5. Add Drug PDFs
-Download drug label PDFs from [DailyMed](https://dailymed.nlm.nih.gov) and place in `backend/data/`:
-
+Place your PDF files in `backend/data/`:
+```bash
 backend/data/
 ├── jardiance.pdf
 ├── ozempic.pdf
-├── farxiga.pdf
-└── ... (any drug PDFs)
+├── ...
+```
 
 ### 6. Run Ingestion
 ```bash
