@@ -3,11 +3,16 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from dotenv import load_dotenv
 
-load_dotenv(override=True)
+load_dotenv(override=False)
+
+# Backend directory — used to resolve relative paths like ./vectorstore/chroma_db
+# Works whether running from backend/ (uvicorn) or project root (streamlit)
+_BACKEND_DIR = Path(__file__).resolve().parent.parent
 
 def _get_env(key: str, default: str = None, required: bool = False) -> str:
     """
     Safely reads an environment variable.
+    Falls back to Streamlit secrets if env var not found (for Streamlit Cloud).
 
     Args:
         key      : environment variable name
@@ -18,14 +23,28 @@ def _get_env(key: str, default: str = None, required: bool = False) -> str:
         value of the environment variable
 
     Raises:
-        ValueError: if required=True and key is not found in .env
+        ValueError: if required=True and key is not found in .env or secrets
     """
-    value = os.getenv(key, default)
+    # First try environment variable / .env
+    value = os.getenv(key)
+
+    # If not found, try Streamlit secrets (for Streamlit Cloud deployment)
+    if value is None:
+        try:
+            import streamlit as st
+            if hasattr(st, "secrets") and key in st.secrets:
+                value = str(st.secrets[key])
+        except Exception:
+            pass
+
+    # Use default if still not found
+    if value is None:
+        value = default
 
     if required and value is None:
         raise ValueError(
             f"❌ Missing required environment variable: '{key}'\n"
-            f"   Please add it to your .env file."
+            f"   Please add it to your .env file or Streamlit secrets."
         )
 
     return value
@@ -87,6 +106,22 @@ def _get_bool(key: str, default: bool) -> bool:
     value = _get_env(key, str(default)).lower()
     return value in ("true", "1", "yes")
 
+def _resolve_path(path_str: str) -> str:
+    """
+    Resolves a path relative to the backend directory.
+    If the path is already absolute, returns it as-is.
+    If relative (starts with ./), resolves relative to backend dir.
+
+    Why: .env uses relative paths like ./vectorstore/chroma_db
+    These are relative to backend/, not the project root.
+    When running from root (Streamlit Cloud), they'd resolve wrong.
+    This ensures correct resolution regardless of working directory.
+    """
+    p = Path(path_str)
+    if p.is_absolute():
+        return str(p)
+    return str((_BACKEND_DIR / p).resolve())
+
 
 # CONFIGURATION DATACLASSES
 @dataclass
@@ -115,7 +150,7 @@ class VectorStoreConfig:
     Chroma vector store configuration.
     Why Chroma: Simple, persistent, local — no server setup needed.
     """
-    persist_dir     : str = field(default_factory=lambda: _get_env("CHROMA_PERSIST_DIR", "./vectorstore/chroma_db"))
+    persist_dir     : str = field(default_factory=lambda: _resolve_path(_get_env("CHROMA_PERSIST_DIR", "./vectorstore/chroma_db")))
     collection_name : str = field(default_factory=lambda: _get_env("COLLECTION_NAME", "pharma_rag"))
 
 
@@ -175,7 +210,7 @@ class DataConfig:
     Data directory configuration.
     Why Path: cross-platform path handling — works on Windows, Mac, Linux.
     """
-    pdf_dir : Path = field(default_factory=lambda: Path(_get_env("PDF_DIR", "./data/pdfs")))
+    pdf_dir : Path = field(default_factory=lambda: Path(_resolve_path(_get_env("PDF_DIR", "./data"))))
 
 # MASTER CONFIG CLASS
 @dataclass

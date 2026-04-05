@@ -1,19 +1,41 @@
-﻿streamlit
-requests
+# =============================================================================
+# RXINSIGHT - ALL DEPENDENCIES
+# =============================================================================
+# Streamlit Cloud installs from this file.
+# Includes ALL dependencies (backend + frontend).
+# =============================================================================
+
+# Frontend
+streamlit
+
+# Backend — FastAPI (still available for local/API development)
 fastapi
 uvicorn
 pydantic
+
+# LangChain
 langchain
 langchain-core
 langchain-community
 langchain-groq
 langchain-huggingface
 langchain-chroma
+langchain-experimental
+
+# Vector Store
 chromadb
+
+# Embeddings & Reranker
 sentence-transformers
-torch
-transformers
-pypdf
+
+# PDF Loading
+PyMuPDF
+
+# BM25
 rank-bm25
-python-multipart
+
+# Environment
 python-dotenv
+
+# Misc
+python-multipart

@@ -33,8 +33,8 @@ from datetime import datetime
 from ingestion import (
     load_single_pdf,
     chunk_documents,
-    load_embedding_model,
 )
+from ingestion.embedder import load_embedding_model
 from langchain_chroma import Chroma
 from utils.logger import get_logger
 from utils.config import config

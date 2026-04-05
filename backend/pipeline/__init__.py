@@ -20,5 +20,5 @@ __all__ = [
     "run_query",
     "get_pipeline_state",
     "generate_answer",
-    run_query_stream
+    "run_query_stream",
 ]

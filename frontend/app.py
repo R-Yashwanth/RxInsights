@@ -1,11 +1,10 @@
 # =============================================================================
 # RXINSIGHT - STREAMLIT FRONTEND
 # =============================================================================
-# Why Streamlit?
-# → Fast to build — no HTML/CSS needed
-# → Free deployment on Streamlit Cloud
-# → Built in chat interface
-# → Easy integration with FastAPI
+# Architecture:
+# → Direct Python calls to backend — no HTTP/FastAPI middleman
+# → Works on Streamlit Cloud without running a separate server
+# → FastAPI (backend/main.py) still available for API/local development
 #
 # Features:
 # → Streaming responses (ChatGPT effect)
@@ -13,175 +12,108 @@
 # → Chat history for follow up questions
 # → Sources display
 # → Knowledge base status
+# → Auto-ingestion: new PDFs in data/ appear automatically
 #
-# -------------------------------------------------------------------------
-# CHANGES MADE FOR SPEED:
-#
-# 1. REMOVED 'from torch import chunk':
-#    Was loading ~500MB PyTorch library on every startup for nothing.
-#
-# 2. CACHED call_status() with @st.cache_data(ttl=60):
-#    YOUR CODE called call_status() on EVERY Streamlit rerun.
-#    Every FAQ click, clear chat, or keystroke triggered a full HTTP call
-#    to /status, which called is_vectorstore_ready(), which loaded the
-#    embedding model + vectorstore from scratch EVERY TIME.
-#    → Now cached for 60 seconds. Status doesn't change that often.
-#
-# 3. FIXED FAQ double-message bug:
-#    YOUR CODE: FAQ button handler appended message to st.session_state,
-#    then called st.rerun(). After rerun, the process query section
-#    appended the SAME message again → duplicate user messages in chat.
-#    → Now FAQ button only sets input_query, doesn't append message.
-#      The process query section handles the append once.
-#
-# 4. CACHED call_drugs() with @st.cache_data(ttl=300):
-#    Drug list doesn't change unless you re-ingest.
-#    No need to call API on every rerun.
-#
-# 5. FIXED clear chat instant:
-#    Clear chat no longer triggers call_status() or call_drugs()
-#    because those are now cached. Rerun is instant.
-# -------------------------------------------------------------------------
+# Performance:
+# → Cached status/drug checks via @st.cache_data
+# → Pipeline models preloaded once at startup (via app.py)
+# → No HTTP overhead — direct function calls
 # =============================================================================
 
-import requests
+import json
 import streamlit as st
-# CHANGE: Removed 'from torch import chunk' — see note #1 above.
 
 
 # =============================================================================
-# CONFIGURATION
+# BACKEND IMPORTS — Direct Python calls (no HTTP)
 # =============================================================================
 
-import os
-API_URL = os.getenv("API_URL", "http://localhost:8000")
+from ingestion import is_vectorstore_ready
+from ingestion.embedder import load_vectorstore
+from pipeline.rag_pipeline import (
+    run_query,
+    run_query_stream,
+    get_pipeline_state,
+    build_drug_dictionary,
+)
+from utils.logger import get_logger
 
+logger = get_logger("frontend")
 
 
 # =============================================================================
-# API CALLS — NOW CACHED
+# BACKEND CALLS — Cached for Performance
 # =============================================================================
 
-
-# =============================================================================
-# API CALLS — NOW CACHED
-# =============================================================================
-
-# -------------------------------------------------------------------------
-# CHANGE: Added @st.cache_data(ttl=60)
-#
-# WHAT YOU WROTE:
-#   def call_status() -> dict:
-#       response = requests.get(f"{API_URL}/status", timeout=10)
-#       return response.json()
-#
-# WHY IT WAS SLOW:
-#   Streamlit reruns the ENTIRE main() function on every interaction:
-#   - Click FAQ button → rerun → call_status() → HTTP call → backend
-#     loads embedding model + vectorstore → 2-5 seconds wasted
-#   - Click clear chat → rerun → same 2-5 seconds wasted
-#   - Type in chat box → rerun → same 2-5 seconds wasted
-#   This was THE MAIN reason everything felt slow.
-#
-# WHAT WAS CHANGED:
-#   @st.cache_data(ttl=60) caches the result for 60 seconds.
-#   First call: normal HTTP request.
-#   Next 60 seconds: returns cached dict instantly (0ms).
-#   Vectorstore status doesn't change unless you re-ingest.
-# -------------------------------------------------------------------------
 @st.cache_data(ttl=60, show_spinner=False)
 def call_status() -> dict:
     """Checks if vectorstore is ready. Cached for 60 seconds."""
     try:
-        response = requests.get(
-            f"{API_URL}/status",
-            timeout = 10,
-        )
-        return response.json()
+        ready = is_vectorstore_ready()
+        return {
+            "vectorstore_ready": ready,
+            "message": "ready" if ready else "not ready",
+        }
     except Exception as e:
         return {"vectorstore_ready": False, "error": str(e)}
 
 
-# -------------------------------------------------------------------------
-# CHANGE: Added @st.cache_data(ttl=300)
-#
-# WHAT YOU WROTE:
-#   def call_drugs() -> list:
-#       response = requests.get(f"{API_URL}/drugs", timeout=10)
-#       ...
-#
-# WHY IT WAS SLOW:
-#   Same as call_status — called on every rerun.
-#   Drug list only changes after re-ingestion, so caching for
-#   5 minutes (300 seconds) is safe.
-#
-# WHAT WAS CHANGED:
-#   @st.cache_data(ttl=300) — cached for 5 minutes.
-# -------------------------------------------------------------------------
-# CHANGE: Reduced TTL from 300s to 60s for auto-ingestion compatibility.
-# When new PDFs are added, new drugs should appear within ~1 minute.
 @st.cache_data(ttl=60, show_spinner=False)
 def call_drugs() -> list:
     """
-    Fetches available drugs from FastAPI. Cached for 60 seconds.
-
-    Why from API?
-    → Not hardcoded ✅
-    → Auto updates when new drugs ingested ✅
-    → Returns brand + generic names ✅
+    Fetches available drugs directly from the vectorstore.
+    Cached for 60 seconds — refreshes when new PDFs are auto-ingested.
     """
     try:
-        response = requests.get(
-            f"{API_URL}/drugs",
-            timeout = 10,
-        )
-        data = response.json()
-        return data.get("drugs", [])
+        vectorstore = load_vectorstore()
+        all_data = vectorstore.get()
+        metadatas = all_data.get("metadatas", [])
+
+        drugs = {}
+        for meta in metadatas:
+            drug_name = meta.get("drug_name", "")
+            generic_name = meta.get("generic_name", "")
+            if drug_name and drug_name not in drugs:
+                drugs[drug_name] = {
+                    "brand_name": drug_name,
+                    "generic_name": generic_name,
+                }
+
+        return list(drugs.values())
     except Exception as e:
+        logger.error(f"Failed to get drugs: {e}")
         return []
 
 
 def call_query(query: str, history: list) -> dict:
-    """Calls non-streaming query endpoint."""
+    """Calls query pipeline directly — no HTTP."""
     try:
-        response = requests.post(
-            f"{API_URL}/query",
-            json    = {
-                "query"       : query,
-                "chat_history": history,
-            },
-            timeout = 60,
+        return run_query(
+            user_query=query,
+            chat_history=history,
         )
-        return response.json()
     except Exception as e:
         return {"error": str(e)}
 
 
 def stream_query(query: str, history: list):
     """
-    Streams answer from FastAPI word by word.
+    Streams answer directly from the pipeline.
 
     Why streaming?
     → User sees response immediately ✅
     → ChatGPT typing effect ✅
-    → Better UX than waiting 8 sec
+    → Better UX than waiting
 
     Yields:
         str : chunks of answer text
     """
     try:
-        with requests.post(
-            f"{API_URL}/query/stream",
-            json    = {
-                "query"       : query,
-                "chat_history": history,
-            },
-            stream  = True,
-            timeout = 60,
-        ) as response:
-            for chunk in response.iter_content(chunk_size=None):
-                if chunk:
-                    yield chunk.decode("utf-8")
+        for chunk in run_query_stream(
+            user_query=query,
+            chat_history=history,
+        ):
+            yield chunk
     except Exception as e:
         yield f"Error: {str(e)}"
 
@@ -198,21 +130,8 @@ def generate_faqs(drugs: list) -> list:
     → Drug list comes from Chroma ✅
     → Auto updates with new drugs ✅
     → Covers all available drugs ✅
-
-    FAQ pattern per drug:
-    → What is {drug} used for?
-    → What are the side effects of {drug}?
-    → What is the recommended dose of {drug}?
-
-    Args:
-        drugs : list of drug dicts from /drugs endpoint
-
-    Returns:
-        list : FAQ question strings
     """
-    faqs     = []
-    # FAQ templates — generic medical questions
-    # Not drug specific — works for any drug ✅
+    faqs = []
     templates = [
         "What is {drug} used for?",
         "What are the side effects of {drug}?",
@@ -238,17 +157,13 @@ def main():
     # Page config
     # -------------------------------------------------------------------------
     st.set_page_config(
-        page_title = "RxInsight",
-        page_icon  = "💊",
-        layout     = "wide",
+        page_title="RxInsight",
+        page_icon="💊",
+        layout="wide",
     )
 
     # -------------------------------------------------------------------------
     # Session state
-    # Why session_state?
-    # → Persists data across Streamlit reruns
-    # → Maintains chat history
-    # → Stores drug list
     # -------------------------------------------------------------------------
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -262,19 +177,6 @@ def main():
     if "faqs" not in st.session_state:
         st.session_state.faqs = []
 
-    HARDCODED_FAQS = [
-        "What is Jardiance used for?",
-        "What are the side effects of Jardiance?",
-        "What is the dosage of Jardiance?",
-        "What is Entresto used for?",
-        "What are the side effects of Entresto?",
-        "Compare Jardiance vs Entresto",
-        "Drug interactions of Jardiance",
-        "Contraindications of Entresto",
-        "How to take Jardiance?",
-        "Warnings of Entresto"
-    ]
-
     # -------------------------------------------------------------------------
     # SIDEBAR
     # -------------------------------------------------------------------------
@@ -283,70 +185,61 @@ def main():
         st.markdown("*AI-powered drug information*")
         st.divider()
 
-        # Status check — NOW CACHED (see @st.cache_data above)
-        # CHANGE: This used to take 2-5 seconds on every rerun.
-        # Now returns instantly from cache after first call.
+        # Status check — cached for 60s
         status = call_status()
-
 
         if status.get("vectorstore_ready"):
             st.success("✅ Knowledge base ready")
         else:
             st.error("❌ Knowledge base not ready")
-            st.warning("Knowledge base is not available. Please contact the administrator.")
+            error_msg = status.get("error", "")
+            if error_msg:
+                st.warning(f"Error: {error_msg}")
+            else:
+                st.warning("Knowledge base is not available. Please check that PDFs exist in the data folder.")
             st.stop()
 
         st.divider()
 
-        # FAQ Section
+        # FAQ Section — dynamic from drug data
         st.subheader("Frequently Asked Questions")
         st.caption("Click any question to ask it")
 
-        for faq in HARDCODED_FAQS:
+        drugs = call_drugs()
+        dynamic_faqs = generate_faqs(drugs)
+
+        # Use dynamic FAQs if available, otherwise show generic ones
+        if dynamic_faqs:
+            display_faqs = dynamic_faqs[:12]  # Limit to 12 FAQs
+        else:
+            display_faqs = [
+                "What drugs are available?",
+                "Tell me about available medications",
+            ]
+
+        for faq in display_faqs:
             if st.button(
                 faq,
                 key=f"faq_{faq}",
                 use_container_width=True,
             ):
-                # ---------------------------------------------------------
-                # CHANGE: Fixed FAQ double-message bug.
-                #
-                # WHAT YOU WROTE:
-                #   st.session_state.messages.append({
-                #       "role": "user",
-                #       "content": faq
-                #   })
-                #   st.session_state.input_query = faq
-                #   st.rerun()
-                #
-                # WHY IT WAS WRONG:
-                #   1. Button handler appends message to messages list
-                #   2. st.rerun() reruns main()
-                #   3. After rerun, default_input = faq → query = faq
-                #   4. Process query section (line ~325) appends SAME
-                #      message to messages list AGAIN
-                #   → User message appeared TWICE in chat history ❌
-                #   → Also slowed things down — processed query twice
-                #
-                # WHAT WAS CHANGED:
-                #   Only set input_query — DON'T append message here.
-                #   Let the process query section handle the single append.
-                # ---------------------------------------------------------
                 st.session_state.input_query = faq
                 st.rerun()
 
         st.divider()
 
-        # Available drugs list — NOW CACHED via call_drugs()
+        # Available drugs list
         st.subheader("Available Drugs")
-        drugs = call_drugs()
-        for drug in drugs:
-            brand   = drug.get("brand_name", "")
-            generic = drug.get("generic_name", "")
-            if generic:
-                st.markdown(f"• **{brand}** *({generic})*")
-            else:
-                st.markdown(f"• **{brand}**")
+        if drugs:
+            for drug in drugs:
+                brand = drug.get("brand_name", "")
+                generic = drug.get("generic_name", "")
+                if generic:
+                    st.markdown(f"• **{brand}** *({generic})*")
+                else:
+                    st.markdown(f"• **{brand}**")
+        else:
+            st.caption("No drugs ingested yet")
 
         st.divider()
 
@@ -382,13 +275,9 @@ def main():
                     for source in message["sources"]:
                         st.markdown(f"• {source}")
 
-    # Spinner/Thinking message while waiting for LLM response
-    # (Handled below in the streaming section, so do not duplicate here)
-
     # -------------------------------------------------------------------------
     # CHAT INPUT
     # -------------------------------------------------------------------------
-    # Handle pre-filled input from FAQ clicks
     default_input = st.session_state.input_query
     if default_input:
         st.session_state.input_query = ""
@@ -405,19 +294,19 @@ def main():
     # PROCESS QUERY
     # -------------------------------------------------------------------------
     if query:
-        # Add user message (ONLY place this happens now — no duplicate)
+        # Add user message (ONLY place this happens — no duplicate)
         st.session_state.messages.append({
-            "role"   : "user",
+            "role": "user",
             "content": query,
         })
 
         with st.chat_message("user"):
             st.markdown(query)
 
-        # Prepare chat history for API
+        # Prepare chat history for pipeline
         history = [
             {
-                "role"   : m["role"],
+                "role": m["role"],
                 "content": m["content"],
             }
             for m in st.session_state.messages[-20:]
@@ -432,7 +321,7 @@ def main():
         query = st.session_state.messages[-1]["content"]
         history = [
             {
-                "role"   : m["role"],
+                "role": m["role"],
                 "content": m["content"],
             }
             for m in st.session_state.messages[-21:-1]
@@ -452,13 +341,13 @@ def main():
                 )
                 if clean_answer:
                     placeholder.markdown(clean_answer + "▌")
-            import json as _json
+
             sources = []
             if "__SOURCES__" in full_answer:
                 parts = full_answer.split("__SOURCES__", 1)
                 answer_text = parts[0]
                 try:
-                    sources = _json.loads(parts[1])
+                    sources = json.loads(parts[1])
                 except Exception:
                     sources = []
             else:
