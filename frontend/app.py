@@ -19,9 +19,12 @@
 # → Pipeline models preloaded once at startup (via app.py)
 # → No HTTP overhead — direct function calls
 # =============================================================================
+# SAFETY SWITCH — FIX PROTOBUF ERROR (MUST BE AT TOP)
+# =============================================================================
+import os
+os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
 
 import json
-import os
 import sys
 from pathlib import Path
 import streamlit as st
