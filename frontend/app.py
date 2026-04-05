@@ -21,7 +21,51 @@
 # =============================================================================
 
 import json
+import os
+import sys
+from pathlib import Path
 import streamlit as st
+
+# =============================================================================
+# PATH INJECTION (Safety for Streamlit Cloud)
+# =============================================================================
+# This ensures the frontend can find the 'backend' folder even if run directly.
+# 1. Resolve Root and Backend directories
+FRONTEND_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(FRONTEND_DIR)
+BACKEND_DIR = os.path.join(ROOT_DIR, "backend")
+
+# 2. Add backend to sys.path so 'from ingestion import...' works
+if BACKEND_DIR not in sys.path:
+    sys.path.insert(0, BACKEND_DIR)
+
+# 3. Check if we are running without the root launcher
+if "startup_complete" not in st.session_state or not st.session_state.startup_complete:
+    try:
+        # Import backend functions (now that path is fixed)
+        from ingestion import is_vectorstore_ready
+        from pipeline import run_ingestion
+        from pipeline.rag_pipeline import get_pipeline_state
+        from pipeline.file_watcher import start_file_watcher
+
+        # Run ingestion if needed
+        if not is_vectorstore_ready():
+            with st.spinner("🔄 Building knowledge base from PDFs... This may take a few minutes on first startup."):
+                run_ingestion()
+        
+        # Start background file watcher
+        try:
+            start_file_watcher()
+        except Exception:
+             pass 
+
+        # Pre-load models into memory
+        get_pipeline_state()
+        
+        st.session_state.startup_complete = True
+    except Exception as e:
+        # If anything fails, we'll try again on next rerun
+        pass
 
 
 # =============================================================================
