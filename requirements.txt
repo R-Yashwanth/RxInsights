@@ -7,7 +7,7 @@
 
 # Frontend
 streamlit>=1.24.0
-protobuf>=4.21.0
+protobuf==3.20.3
 
 # Backend — FastAPI (still available for local/API development)
 fastapi
