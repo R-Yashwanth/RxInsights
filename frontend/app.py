@@ -42,7 +42,11 @@ BACKEND_DIR = os.path.join(ROOT_DIR, "backend")
 if BACKEND_DIR not in sys.path:
     sys.path.insert(0, BACKEND_DIR)
 
-# 3.# One-time startup (only on first load, then cached in session)
+# 3. Import logger early (needed by _startup_pipeline)
+from utils.logger import get_logger  # type: ignore
+logger = get_logger("frontend")
+
+# 4. One-time startup (only on first load, then cached in session)
 @st.cache_resource
 def _startup_pipeline():
     """Initialize pipeline models only once per session."""
@@ -90,9 +94,6 @@ from pipeline.rag_pipeline import (  # type: ignore
     get_pipeline_state,
     build_drug_dictionary,
 )
-from utils.logger import get_logger  # type: ignore
-
-logger = get_logger("frontend")
 
 
 # =============================================================================
