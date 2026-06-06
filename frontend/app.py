@@ -51,20 +51,27 @@ def _startup_pipeline():
         from pipeline import run_ingestion  # type: ignore
         from pipeline.file_watcher import start_file_watcher  # type: ignore
 
+        # Check vectorstore status
+        vectorstore_ready = is_vectorstore_ready()
+        
         # Run ingestion if needed
-        if not is_vectorstore_ready():
+        if not vectorstore_ready:
+            logger.warning("⚠️ Vectorstore not detected, building from PDFs...")
             with st.spinner("🔄 Building knowledge base from PDFs... This may take a few minutes on first startup."):
                 run_ingestion()
+        else:
+            logger.info("✅ Vectorstore already ready, skipping ingestion")
         
         # Start background file watcher
         try:
             start_file_watcher()
-        except Exception:
+        except Exception as e:
+            logger.debug(f"File watcher startup: {e}")
             pass 
 
         return True
     except Exception as e:
-        logger.error(f"Startup error: {e}")
+        logger.error(f"Startup error: {e}", exc_info=True)
         return False
 
 # Run startup only once

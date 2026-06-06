@@ -290,7 +290,7 @@ def is_vectorstore_ready() -> bool:
 
     # Check directory exists
     if not persist_dir.exists():
-        logger.warning("Chroma store directory not found")
+        logger.warning(f"❌ Chroma store directory not found at: {persist_dir}")
         return False
 
     try:
@@ -299,18 +299,18 @@ def is_vectorstore_ready() -> bool:
         sqlite_file = persist_dir / "chroma.sqlite3"
 
         if not sqlite_file.exists():
-            logger.warning("Chroma sqlite file not found")
+            logger.warning(f"❌ Chroma sqlite file not found at: {sqlite_file}")
             return False
 
         # If file exists and has meaningful size (>4KB = not empty DB)
         file_size = sqlite_file.stat().st_size
         if file_size < 4096:
-            logger.warning("Chroma store exists but appears empty")
+            logger.warning(f"⚠️ Chroma store exists but appears empty ({file_size} bytes)")
             return False
 
-        logger.debug(f"✅ Vectorstore ready (sqlite: {file_size} bytes)")
+        logger.info(f"✅ Vectorstore ready (sqlite: {file_size} bytes at {sqlite_file})")
         return True
 
     except Exception as e:
-        logger.error(f"Vectorstore check failed: {e}")
+        logger.error(f"❌ Vectorstore check failed: {e}", exc_info=True)
         return False
