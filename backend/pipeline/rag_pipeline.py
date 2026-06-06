@@ -21,6 +21,7 @@ import json
 import re
 import hashlib
 import random
+import difflib
 from pathlib import Path
 from typing import Optional, List, Dict, Generator
 
@@ -75,6 +76,7 @@ _response_cache  : Dict[str, dict]          = {}
 SMALL_TALK_PATTERNS = [
     "hi", "hello", "hey", "sup",
     "how are you", "how r u", "how are you doing",
+    "who are you", "what are you", "what can you do",
     "good morning", "good evening", "good afternoon",
     "thanks", "thank you", "thx",
     "what's up", "whats up",
@@ -85,23 +87,28 @@ SMALL_TALK_PATTERNS = [
 
 SMALL_TALK_RESPONSES = {
     "greeting": [
-        "Hello! I'm your pharmaceutical assistant. How can I help you with medications today?",
-        "Hi there! I can help with pharmaceutical information. What would you like to know?",
+        "Hey there! 👋 I'm RxInsight, your friendly pharma assistant! I can help you with drug info, side effects, dosages, interactions — basically anything medication-related. What would you like to know?",
+        "Hi! 😊 Welcome to RxInsight! I'm here to help you understand your medications better — from side effects to dosages to drug interactions. Go ahead, ask me anything about a drug!",
+        "Hello! 💊 Great to see you! I'm your personal pharma expert. Whether it's side effects, dosages, or drug comparisons — just ask and I'll break it down for you!",
     ],
     "how_are_you": [
-        "I'm functioning well, thank you! Ready to help with your pharmaceutical questions.",
-        "All good! How can I assist you with medications today?",
+        "I'm doing great, thanks for asking! 😄 I'm always ready to dive into pharma questions. Got a medication you're curious about? Fire away!",
+        "All good on my end! 💪 Ready to help you with any drug-related questions. What medication would you like to explore today?",
+    ],
+    "who_are_you": [
+        "I'm RxInsight, your AI-powered pharmaceutical assistant! 💊 I'm trained to help you with drug information, dosages, side effects, and comparisons. How can I assist you today?",
+        "I am RxInsight! 👋 I'm here to provide quick and accurate pharmaceutical information from trusted drug data. What medication can I help you with?",
     ],
     "thanks": [
-        "You're welcome! Feel free to ask more pharmaceutical questions.",
-        "Happy to help! Let me know if you need anything else.",
+        "You're very welcome! 😊 Glad I could help. If you have more questions about any medication, I'm always here!",
+        "Happy to help! 💊 Don't hesitate to come back if you think of more questions about your medications. That's what I'm here for!",
     ],
     "goodbye": [
-        "Goodbye! Feel free to return if you have more pharmaceutical questions.",
-        "Take care! I'll be here when you need medication information.",
+        "Take care! 👋 Remember, I'm always here whenever you need help with medication questions. Stay healthy!",
+        "Goodbye! 😊 Wishing you good health! Come back anytime you need pharma info — I'll be right here.",
     ],
     "default": [
-        "I'm your pharmaceutical assistant. How can I help with medication questions?",
+        "I'm RxInsight, your friendly pharma assistant! 💊 I can help with drug details, side effects, dosages, and interactions. What medication would you like to know about?",
     ]
 }
 
@@ -141,13 +148,19 @@ def is_small_talk(query: str) -> bool:
 def get_small_talk_response(query: str) -> str:
     """Returns appropriate response for small talk."""
     q = query.lower().strip()
-    # CHANGED: all checks now use _word_match instead of 'in' substring
+    # GREETINGS
     if any(_word_match(g, q) for g in ["hi", "hello", "hey", "sup", "what's up"]):
         return random.choice(SMALL_TALK_RESPONSES["greeting"])
-    elif any(_word_match(h, q) for h in ["how are you", "how r u"]):
+    # HOW ARE YOU
+    elif any(_word_match(h, q) for h in ["how are you", "how r u", "how are you doing"]):
         return random.choice(SMALL_TALK_RESPONSES["how_are_you"])
+    # WHO ARE YOU / IDENTITY
+    elif any(_word_match(w, q) for w in ["who are you", "what are you", "what can you do"]):
+        return random.choice(SMALL_TALK_RESPONSES["who_are_you"])
+    # THANKS
     elif any(_word_match(t, q) for t in ["thanks", "thank you", "thx"]):
         return random.choice(SMALL_TALK_RESPONSES["thanks"])
+    # GOODBYE
     elif any(_word_match(b, q) for b in ["bye", "goodbye", "see you"]):
         return random.choice(SMALL_TALK_RESPONSES["goodbye"])
     return random.choice(SMALL_TALK_RESPONSES["default"])
@@ -184,9 +197,13 @@ OUT_OF_DOMAIN_KEYWORDS = [
 ]
 
 OUT_OF_DOMAIN_RESPONSES = [
-    "I'm a pharmaceutical assistant focused on medication information. I can help with drug details, dosages, side effects, and comparisons. What medication can I help you with?",
-    "I specialize in pharmaceutical information. If you have questions about drugs or treatments, I'm here to help!",
-    "My expertise is pharmaceutical topics. For medication questions, I'm at your service!",
+    "Great question, but that's outside my domain! 😄 I'm RxInsight — your pharmaceutical expert. I can help with things like 'What is the recommended dose of Farxiga?' or 'Compare Jardiance vs Entresto.' What would you like to know?",
+]
+
+NO_DATA_RESPONSES = [
+    "I'm sorry, but I don't have enough information about '{query}' in my current database. I'm specialized in drugs like **Jardiance, Entresto, Opdivo, and Dupixent**. If you have a question about those or any medication listed in the sidebar, I'd be happy to help! 😊",
+    "I don't find any specific data on '{query}' in my medication library. I'm trained on specific drug labels and pharmaceutical data. If there's another medication you're curious about, feel free to ask!",
+    "It looks like I don't have information regarding '{query}' at the moment. I can help you with dosages, side effects, and more for the drugs in my collection. Would you like to check one of those instead?",
 ]
 
 
@@ -199,8 +216,14 @@ def is_out_of_domain(query: str) -> bool:
 
 
 def get_out_of_domain_response() -> str:
-    """Returns helpful decline message."""
+    """Returns helpful decline message for non-pharma topics."""
     return random.choice(OUT_OF_DOMAIN_RESPONSES)
+
+
+def get_no_data_response(query: str) -> str:
+    """Returns helpful message when a pharma topic is missing from DB."""
+    msg = random.choice(NO_DATA_RESPONSES)
+    return msg.format(query=query)
 
 # =============================================================================
 # FOLLOW-UP QUERY RESOLVER — LLM-Based (Enterprise Grade)
@@ -406,24 +429,54 @@ def build_drug_dictionary(vectorstore: Chroma) -> Dict[str, str]:
 # RULE BASED QUERY ROUTER — Zero LLM Call
 # =============================================================================
 
-def detect_drugs(query: str) -> List[str]:
-    """Detects drug names using dynamic dictionary lookup."""
+def detect_drugs(query: str) -> tuple:
+    """
+    Detects drug names using dynamic dictionary lookup with fuzzy matching.
+
+    Step 1: Exact substring match (fast, handles correct spelling)
+    Step 2: Fuzzy match via difflib (handles typos like 'jardians' → 'jardiance')
+
+    Returns:
+        tuple: (detected_drugs: List[str], corrections: Dict[str, str])
+               corrections maps typo → correct name, e.g. {'entestro': 'ENTRESTO'}
+               Empty dict if no fuzzy match was needed.
+    """
     global _drug_dictionary
     if not _drug_dictionary:
-        return []
+        return [], {}
 
     query_lower = query.lower()
     detected    = []
+    corrections = {}  # typo → correct drug name
+
+    # Step 1: Exact match (current behavior — fast)
     for keyword, drug_name in _drug_dictionary.items():
         if keyword in query_lower:
             if drug_name not in detected:
                 detected.append(drug_name)
 
+    # Step 2: Fuzzy match if no exact match found (handles typos)
+    if not detected:
+        query_words  = query_lower.split()
+        all_keywords = list(_drug_dictionary.keys())
+        for word in query_words:
+            if len(word) < 4:  # Skip short words like 'is', 'the', 'for'
+                continue
+            matches = difflib.get_close_matches(
+                word, all_keywords, n=1, cutoff=0.75
+            )
+            if matches:
+                matched_drug = _drug_dictionary[matches[0]]
+                if matched_drug not in detected:
+                    detected.append(matched_drug)
+                    corrections[word] = matched_drug
+                    logger.info(f"🔤 Fuzzy match: '{word}' → '{matches[0]}' ({matched_drug})")
+
     if detected:
         logger.info(f"Detected drugs: {detected}")
     else:
         logger.info("No drug detected — searching all")
-    return detected
+    return detected, corrections
 
 
 def is_comparison_query(query: str) -> bool:
@@ -439,9 +492,9 @@ def route_query(query: str) -> dict:
     Zero LLM call — pure rule based ✅
 
     Returns:
-        dict: {drugs, filter, is_comparison}
+        dict: {drugs, filter, is_comparison, corrections}
     """
-    detected_drugs = detect_drugs(query)
+    detected_drugs, corrections = detect_drugs(query)
     is_comparison  = is_comparison_query(query)
 
     # Comparison with multiple drugs → no filter
@@ -451,6 +504,7 @@ def route_query(query: str) -> dict:
             "drugs"        : detected_drugs,
             "filter"       : None,
             "is_comparison": True,
+            "corrections"  : corrections,
         }
 
     # Single drug → filter to that drug
@@ -460,6 +514,7 @@ def route_query(query: str) -> dict:
             "drugs"        : detected_drugs,
             "filter"       : {"drug_name": detected_drugs[0]},
             "is_comparison": False,
+            "corrections"  : corrections,
         }
 
     # No drug → search all
@@ -468,6 +523,7 @@ def route_query(query: str) -> dict:
         "drugs"        : [],
         "filter"       : None,
         "is_comparison": False,
+        "corrections"  : {},
     }
 
 
@@ -840,13 +896,82 @@ def refresh_pipeline_state():
 # =============================================================================
 
 def run_ingestion() -> dict:
-    """Runs complete ingestion pipeline."""
+    """
+    Smart ingestion pipeline — only processes NEW files.
+
+    Production-level behavior:
+    1. Checks manifest for already-processed files
+    2. If all files are processed → skip entirely (instant startup)
+    3. If new files exist → ingest only the new ones (incremental)
+    4. If no manifest exists → full ingestion (first-time setup)
+
+    This means redeploying the app does NOT re-ingest all PDFs.
+    Only genuinely new files trigger processing.
+    """
     global _vectorstore, _documents, _reranker_model
     global _drug_dictionary, _config_data
     global _response_cache, _llm, _llm_stream
 
     logger.info("🚀 Starting Ingestion Pipeline")
 
+    # =========================================================================
+    # SMART CHECK: Skip ingestion if all files are already processed
+    # =========================================================================
+    try:
+        from pipeline.file_watcher import _load_manifest, _get_processed_files, _save_manifest, MANIFEST_FILE
+        from datetime import datetime
+
+        data_dir = Path(config.data.pdf_dir)
+        manifest = _load_manifest()
+        processed = _get_processed_files(manifest)
+
+        if data_dir.exists():
+            current_files = {f.name for f in data_dir.glob("*.pdf")}
+            new_files = current_files - processed
+
+            if not new_files and processed:
+                logger.info(f"✅ All {len(processed)} PDFs already ingested — skipping")
+                return {
+                    "status"        : "skipped",
+                    "pages_loaded"  : 0,
+                    "chunks_created": 0,
+                    "message"       : f"All {len(processed)} files already ingested. No work needed."
+                }
+
+            if new_files:
+                logger.info(f"📥 Found {len(new_files)} new PDF(s) to ingest: {new_files}")
+
+                # Incremental ingestion — only new files
+                from pipeline.file_watcher import ingest_new_files
+                new_paths = [data_dir / name for name in new_files]
+                chunks_added = ingest_new_files(new_paths)
+
+                # Update manifest
+                for name in new_files:
+                    manifest["files"][name] = {
+                        "ingested_at": datetime.now().isoformat(),
+                        "chunks_added": chunks_added // len(new_files) if new_files else 0,
+                    }
+                _save_manifest(manifest)
+
+                # Reset state so it reloads with new data
+                _vectorstore     = None
+                _documents       = None
+                _drug_dictionary = {}
+                _response_cache.clear()
+
+                return {
+                    "status"        : "incremental",
+                    "pages_loaded"  : len(new_files),
+                    "chunks_created": chunks_added,
+                    "message"       : f"Incrementally ingested {len(new_files)} new file(s)."
+                }
+    except Exception as e:
+        logger.warning(f"Smart ingestion check failed: {e} — falling back to full ingestion")
+
+    # =========================================================================
+    # FULL INGESTION — Only runs on first-time setup or manifest failure
+    # =========================================================================
     with Timer("Full Ingestion"):
         logger.info("Step 1/3: Loading PDFs...")
         documents = load_all_pdfs()
@@ -871,7 +996,7 @@ def run_ingestion() -> dict:
         "status"        : "success",
         "pages_loaded"  : len(documents),
         "chunks_created": len(chunks),
-        "message"       : "Ingestion complete. Ready for queries."
+        "message"       : "Full ingestion complete. Ready for queries."
     }
 
     logger.info(f"✅ Ingestion Complete: {summary}")
@@ -891,28 +1016,20 @@ def run_query(
 
     Order of checks (fastest first):
     1. Validate query
-    2. Cache check         → instant ✅
-    3. Small talk check    → instant ✅
-    4. Out-of-domain check → instant ✅
-    5. RAG pipeline        → full processing
+    2. Small talk check    → instant, no models needed ✅
+    3. Out-of-domain check → instant, no models needed ✅
+    4. Load models         → _llm now available ✅
+    5. Resolve follow-ups  → uses _llm for query rewriting ✅
+    6. Cache check         → after rewrite for correct key ✅
+    7. RAG pipeline        → full processing
     """
     logger.info(f"🔍 Query: '{user_query}'")
 
     # Step 1: Validate
     user_query = validate_query(user_query)
 
-    # CHANGE: Resolve follow-up references BEFORE cache/search
-    # "this drug" / "it" → actual drug name from chat history
-    user_query = resolve_followup_query(user_query, chat_history)
-
-    # Step 2: Cache check FIRST
-    # Most common optimization — check before anything else
-    cached = get_cached_response(user_query)
-    if cached:
-        logger.info("✅ Cache HIT")
-        return cached
-
-    # Step 3: Guardrail — Small talk
+    # Step 2: Guardrail — Small talk (BEFORE any model loading)
+    # "hi", "hello", "thanks" → instant warm response, zero latency
     if is_small_talk(user_query):
         logger.info("✅ Small talk")
         return {
@@ -923,7 +1040,7 @@ def run_query(
             "sources"         : [],
         }
 
-    # Step 4: Guardrail — Out-of-domain
+    # Step 3: Guardrail — Out-of-domain (BEFORE any model loading)
     if is_out_of_domain(user_query):
         logger.info("⚠️ Out-of-domain")
         return {
@@ -934,12 +1051,23 @@ def run_query(
             "sources"         : [],
         }
 
-    # Step 5: Check vectorstore
+    # Step 4: Check vectorstore
     if not is_vectorstore_ready():
         raise ValueError("❌ Vectorstore not ready.")
 
-    # Step 6: Get preloaded models
+    # Step 5: Get preloaded models — _llm is NOW available
     vectorstore, documents, reranker = get_pipeline_state()
+
+    # Step 6: Resolve follow-up references AFTER _llm is loaded
+    # "this drug" / "it" → actual drug name from chat history
+    # Now _llm is guaranteed to be available for query rewriting ✅
+    user_query = resolve_followup_query(user_query, chat_history)
+
+    # Step 7: Cache check (after rewrite so cache key matches rewritten query)
+    cached = get_cached_response(user_query)
+    if cached:
+        logger.info("✅ Cache HIT")
+        return cached
 
     with Timer("RAG Pipeline"):
 
@@ -1007,9 +1135,10 @@ def run_query(
                     fallback_chunks = documents[:1]  # fallback to first chunk if none found
                 reranked_chunks = fallback_chunks
             else:
-                logger.info("⚠️ Reranker returned 0 chunks — out-of-domain")
+                # TRULY NO DATA -> Use the specialized "No Data" response
+                logger.info(f"⚠️ Reranker returned 0 chunks — no data found for: {user_query}")
                 return {
-                    "answer"          : get_out_of_domain_response(),
+                    "answer"          : get_no_data_response(user_query),
                     "rewritten_query" : user_query,
                     "sub_queries"     : [user_query],
                     "chunks_used"     : 0,
@@ -1031,6 +1160,13 @@ def run_query(
         f"(page {doc.metadata.get('page', '?')})"
         for doc in reranked_chunks
     ]))
+
+    # Prepend "Did you mean X?" if fuzzy match was used
+    corrections = route.get("corrections", {})
+    if corrections:
+        correction_parts = [f"**{correct}**" for typo, correct in corrections.items()]
+        correction_msg = f"🔤 Did you mean {', '.join(correction_parts)}? Here's what I found:\n\n"
+        answer = correction_msg + answer
 
     response = {
         "answer"          : answer,
@@ -1058,20 +1194,18 @@ def run_query_stream(
     """
     Streaming RAG pipeline with guardrails.
 
-    Same order as run_query — fastest checks first.
-    Streams answer word by word ✅
+    Same order as run_query — fastest checks first:
+    1. Validate → 2. Small talk → 3. OOD → 4. Load models
+    → 5. Resolve follow-ups → 6. Search → 7. Stream answer
     """
     user_query = validate_query(user_query)
 
-    # CHANGE: Resolve follow-up references BEFORE guardrails/search
-    user_query = resolve_followup_query(user_query, chat_history)
-
-    # Guardrail: Small talk → instant stream
+    # Guardrail: Small talk → instant stream (BEFORE model loading)
     if is_small_talk(user_query):
         yield get_small_talk_response(user_query)
         return
 
-    # Guardrail: Out-of-domain → instant stream
+    # Guardrail: Out-of-domain → instant stream (BEFORE model loading)
     if is_out_of_domain(user_query):
         yield get_out_of_domain_response()
         return
@@ -1081,8 +1215,11 @@ def run_query_stream(
         yield "❌ Vectorstore not ready. Please run ingestion first."
         return
 
-    # Get preloaded models
+    # Get preloaded models — _llm is NOW available
     vectorstore, documents, reranker = get_pipeline_state()
+
+    # Resolve follow-up references AFTER _llm is loaded ✅
+    user_query = resolve_followup_query(user_query, chat_history)
 
     # Route
     route = route_query(user_query)
@@ -1107,8 +1244,6 @@ def run_query_stream(
         model     = reranker,
     )
 
-    # Same smart out-of-domain check as run_query (see comment there)
-    # If reranker says "nothing is relevant" → don't waste an LLM call
     if not reranked_chunks:
         # Check if query contains a known drug name
         found_drug = None
@@ -1119,6 +1254,7 @@ def run_query_stream(
                 if keyword in query_lower:
                     found_drug = keyword
                     break
+        
         if found_drug:
             logger.info(f"⚠️ Reranker returned 0 chunks, but found drug '{found_drug}' in query — forcing context (stream)")
             fallback_chunks = [doc for doc in documents if found_drug in doc.metadata.get('drug_name', '').lower()]
@@ -1126,12 +1262,20 @@ def run_query_stream(
                 fallback_chunks = documents[:1]
             reranked_chunks = fallback_chunks
         else:
-            logger.info("⚠️ Reranker returned 0 chunks — out-of-domain (stream)")
-            yield get_out_of_domain_response()
+            # TRULY NO DATA -> Use the specialized "No Data" response
+            logger.info(f"⚠️ Reranker returned 0 chunks — no data found for: {user_query}")
+            yield get_no_data_response(user_query)
             return
 
     # Format context
     context = format_documents(reranked_chunks)
+
+    # If fuzzy match, yield "Did you mean X?" FIRST before the answer streams
+    corrections = route.get("corrections", {})
+    if corrections:
+        correction_parts = [f"**{correct}**" for typo, correct in corrections.items()]
+        correction_msg = f"🔤 Did you mean {', '.join(correction_parts)}? Here's what I found:\n\n"
+        yield correction_msg
 
     # Stream answer
     full_answer = ""

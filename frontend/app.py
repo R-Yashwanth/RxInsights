@@ -42,14 +42,14 @@ BACKEND_DIR = os.path.join(ROOT_DIR, "backend")
 if BACKEND_DIR not in sys.path:
     sys.path.insert(0, BACKEND_DIR)
 
-# 3. Check if we are running without the root launcher
-if "startup_complete" not in st.session_state or not st.session_state.startup_complete:
+# 3.# One-time startup (only on first load, then cached in session)
+@st.cache_resource
+def _startup_pipeline():
+    """Initialize pipeline models only once per session."""
     try:
-        # Import backend functions (now that path is fixed)
-        from ingestion import is_vectorstore_ready
-        from pipeline import run_ingestion
-        from pipeline.rag_pipeline import get_pipeline_state
-        from pipeline.file_watcher import start_file_watcher
+        from ingestion import is_vectorstore_ready  # type: ignore
+        from pipeline import run_ingestion  # type: ignore
+        from pipeline.file_watcher import start_file_watcher  # type: ignore
 
         # Run ingestion if needed
         if not is_vectorstore_ready():
@@ -60,30 +60,30 @@ if "startup_complete" not in st.session_state or not st.session_state.startup_co
         try:
             start_file_watcher()
         except Exception:
-             pass 
+            pass 
 
-        # Pre-load models into memory
-        get_pipeline_state()
-        
-        st.session_state.startup_complete = True
+        return True
     except Exception as e:
-        # If anything fails, we'll try again on next rerun
-        pass
+        logger.error(f"Startup error: {e}")
+        return False
+
+# Run startup only once
+_startup_pipeline()
 
 
 # =============================================================================
 # BACKEND IMPORTS — Direct Python calls (no HTTP)
 # =============================================================================
 
-from ingestion import is_vectorstore_ready
-from ingestion.embedder import load_vectorstore
-from pipeline.rag_pipeline import (
+from ingestion import is_vectorstore_ready  # type: ignore
+from ingestion.embedder import load_vectorstore  # type: ignore
+from pipeline.rag_pipeline import (  # type: ignore
     run_query,
     run_query_stream,
     get_pipeline_state,
     build_drug_dictionary,
 )
-from utils.logger import get_logger
+from utils.logger import get_logger  # type: ignore
 
 logger = get_logger("frontend")
 
@@ -208,6 +208,85 @@ def main():
         page_icon="💊",
         layout="wide",
     )
+
+    # -------------------------------------------------------------------------
+    # SMOOTH ANIMATIONS — CSS Injections
+    # -------------------------------------------------------------------------
+    st.markdown("""
+    <style>
+    /* ===== CHAT MESSAGES — Fade in + slide up smoothly ===== */
+    .stChatMessage {
+        animation: messageSlideIn 0.4s ease-out;
+    }
+    @keyframes messageSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ===== SIDEBAR BUTTONS — Smooth hover transitions ===== */
+    .stSidebar button {
+        transition: all 0.2s ease;
+        border-radius: 8px !important;
+    }
+    .stSidebar button:hover {
+        transform: translateX(4px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    /* ===== MAIN TITLE — Fade in on load ===== */
+    .stTitle, h1 {
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    /* ===== EXPANDERS (Sources) — Smooth open ===== */
+    .streamlit-expanderHeader {
+        transition: all 0.2s ease;
+    }
+    .streamlit-expanderHeader:hover {
+        color: #4CAF50;
+    }
+
+    /* ===== CHAT INPUT — Subtle glow on focus ===== */
+    .stChatInput textarea {
+        transition: box-shadow 0.3s ease;
+    }
+    .stChatInput textarea:focus {
+        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
+    }
+
+    /* ===== SUCCESS/ERROR ALERTS — Fade in ===== */
+    .stAlert {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    /* ===== SPINNER — Smooth pulse ===== */
+    .stSpinner {
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    /* ===== GENERIC FADE IN ===== */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* ===== DIVIDERS — Subtle appearance ===== */
+    hr {
+        animation: fadeIn 0.4s ease-out;
+    }
+
+    /* ===== SIDEBAR DRUG LIST — Stagger animation ===== */
+    .stSidebar .stMarkdown {
+        animation: fadeIn 0.3s ease-out;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
     # -------------------------------------------------------------------------
     # Session state

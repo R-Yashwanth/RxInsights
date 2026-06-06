@@ -34,10 +34,13 @@ env/
 .venv/
 
 # -----------------------------------------------------------------------------
-# VECTOR STORE — large files, re-ingested on deploy
+# VECTOR STORE — TRACKED IN GIT for instant startup
+# The pre-built vectorstore (~30MB) is committed to git so that
+# Streamlit Cloud / any deploy gets instant startup without re-ingesting.
+# Only the manifest (ingested_manifest.json) + chroma.sqlite3 are needed.
 # -----------------------------------------------------------------------------
-vectorstore/
-chroma_db/
+# vectorstore/   ← intentionally NOT ignored
+# chroma_db/     ← intentionally NOT ignored
 
 # -----------------------------------------------------------------------------
 # PYTHON CACHE

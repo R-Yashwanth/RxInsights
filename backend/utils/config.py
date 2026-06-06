@@ -176,7 +176,7 @@ class RetrievalConfig:
     SEMANTIC_WEIGHT : 60% semantic search weight
     """
     top_k             : int   = field(default_factory=lambda: _get_int("TOP_K", 10))
-    score_threshold   : float = field(default_factory=lambda: _get_float("SCORE_THRESHOLD", 0.70))
+    score_threshold   : float = field(default_factory=lambda: _get_float("SCORE_THRESHOLD", 0.75))
     final_top_k       : int   = field(default_factory=lambda: _get_int("FINAL_TOP_K", 3))
     bm25_weight       : float = field(default_factory=lambda: _get_float("BM25_WEIGHT", 0.4))
     semantic_weight   : float = field(default_factory=lambda: _get_float("SEMANTIC_WEIGHT", 0.6))

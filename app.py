@@ -35,54 +35,7 @@ sys.path.insert(0, BACKEND_DIR)
 # config.py handles: relative path resolution (always relative to backend/)
 
 # =============================================================================
-# STEP 3: Auto-ingest on first startup if vectorstore doesn't exist
-# =============================================================================
-import streamlit as st
-
-if "startup_complete" not in st.session_state:
-    st.session_state.startup_complete = False
-
-if not st.session_state.startup_complete:
-    try:
-        from ingestion import is_vectorstore_ready
-        from utils.logger import get_logger
-
-        logger = get_logger("startup")
-
-        if not is_vectorstore_ready():
-            logger.info("🚀 First startup — vectorstore not found, running ingestion...")
-            with st.spinner("🔄 Building knowledge base from PDFs... This may take a few minutes on first startup."):
-                from pipeline import run_ingestion
-                result = run_ingestion()
-                logger.info(f"✅ Ingestion complete: {result}")
-        else:
-            logger.info("✅ Vectorstore already exists — skipping ingestion")
-
-        # Start file watcher for auto-ingesting new PDFs
-        try:
-            from pipeline.file_watcher import start_file_watcher
-            start_file_watcher()
-        except Exception as e:
-            logger.warning(f"File watcher startup failed: {e}")
-
-        # Preload pipeline models
-        try:
-            from pipeline.rag_pipeline import get_pipeline_state
-            get_pipeline_state()
-            logger.info("✅ Pipeline models preloaded")
-        except Exception as e:
-            logger.warning(f"Model preloading failed: {e}")
-
-        st.session_state.startup_complete = True
-
-    except Exception as e:
-        st.error(f"Startup failed: {e}")
-        import traceback
-        st.code(traceback.format_exc())
-        st.stop()
-
-# =============================================================================
-# STEP 4: Run the frontend
+# STEP 3: Run the frontend
 # =============================================================================
 frontend_path = os.path.join(ROOT_DIR, "frontend", "app.py")
 with open(frontend_path, "r", encoding="utf-8") as f:

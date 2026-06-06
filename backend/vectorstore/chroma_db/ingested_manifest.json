@@ -1,0 +1,44 @@
+{
+  "files": {
+    "20251102_000dc81d-ab91-450c-8eae-8eb74e72296f.pdf": {
+      "ingested_at": "2026-04-06T01:17:09.560531",
+      "chunks_added": "existing"
+    },
+    "20251204_f570b9c4-6846-4de2-abfa-4d0a4ae4e394.pdf": {
+      "ingested_at": "2026-04-06T01:17:09.560531",
+      "chunks_added": "existing"
+    },
+    "20251223_72ad22ae-efe6-4cd6-a302-98aaee423d69.pdf": {
+      "ingested_at": "2026-04-06T01:17:09.560531",
+      "chunks_added": "existing"
+    },
+    "20251223_f7b3f443-e83d-4bf2-0e96-023448fed9a8.pdf": {
+      "ingested_at": "2026-04-06T01:17:09.560531",
+      "chunks_added": "existing"
+    },
+    "20260201_faf3dd6a-9cd0-39c2-0d2e-232cb3f67565.pdf": {
+      "ingested_at": "2026-04-06T01:17:09.560531",
+      "chunks_added": "existing"
+    },
+    "20260206_608d4f0d-b19f-46d3-749a-7159aa5f933d.pdf": {
+      "ingested_at": "2026-04-06T01:17:09.560531",
+      "chunks_added": "existing"
+    },
+    "20260221_27f15fac-7d98-4114-a2ec-92494a91da98.pdf": {
+      "ingested_at": "2026-04-06T01:17:09.560531",
+      "chunks_added": "existing"
+    },
+    "20260305_595f437d-2729-40bb-9c62-c8ece1f82780.pdf": {
+      "ingested_at": "2026-04-06T01:17:09.560531",
+      "chunks_added": "existing"
+    },
+    "20260312_9333c79b-d487-4538-a9f0-71b91a02b287.pdf": {
+      "ingested_at": "2026-04-06T01:17:09.560531",
+      "chunks_added": "existing"
+    },
+    "20260325_463050bd-2b1c-40f5-b3c3-0a04bb433309.pdf": {
+      "ingested_at": "2026-04-06T01:17:09.560531",
+      "chunks_added": "existing"
+    }
+  }
+}
