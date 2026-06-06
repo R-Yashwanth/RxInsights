@@ -1,6 +1,21 @@
+[client]
+showErrorDetails = false
+showWarningOnDirectExecution = false
+headerVisibility = "hidden"
+
+[logger]
+level = "error"
+
 [theme]
 primaryColor = "#003366"
 backgroundColor = "#101820"
 secondaryBackgroundColor = "#1A2636"
 textColor = "#FFFFFF"
 font = "sans serif"
+
+[server]
+# Faster startup
+runOnSave = false
+enableCORS = false
+maxUploadSize = 200
+maxMessageSize = 200

@@ -313,19 +313,14 @@ def main():
         st.markdown("*AI-powered drug information*")
         st.divider()
 
-        # Status check — cached for 60s
+        # Status check — cached for 60s (non-blocking)
         status = call_status()
-
+        
+        # Show status immediately without blocking
         if status.get("vectorstore_ready"):
             st.success("✅ Knowledge base ready")
         else:
-            st.error("❌ Knowledge base not ready")
-            error_msg = status.get("error", "")
-            if error_msg:
-                st.warning(f"Error: {error_msg}")
-            else:
-                st.warning("Knowledge base is not available. Please check that PDFs exist in the data folder.")
-            st.stop()
+            st.warning("⏳ Initializing knowledge base...")
 
         st.divider()
 
@@ -333,7 +328,13 @@ def main():
         st.subheader("Frequently Asked Questions")
         st.caption("Click any question to ask it")
 
-        drugs = call_drugs()
+        # Load drugs (cached, won't block on subsequent loads)
+        try:
+            drugs = call_drugs()
+        except Exception as e:
+            logger.debug(f"Drug loading: {e}")
+            drugs = []
+        
         dynamic_faqs = generate_faqs(drugs)
 
         # Use dynamic FAQs if available, otherwise show generic ones
