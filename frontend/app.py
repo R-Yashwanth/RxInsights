@@ -42,44 +42,38 @@ BACKEND_DIR = os.path.join(ROOT_DIR, "backend")
 if BACKEND_DIR not in sys.path:
     sys.path.insert(0, BACKEND_DIR)
 
-# 3. Import logger early (needed by _startup_pipeline)
+# 3. Import logger early (needed by startup)
 from utils.logger import get_logger  # type: ignore
 logger = get_logger("frontend")
 
-# 4. One-time startup (only on first load, then cached in session)
+# 4. Silent background startup (no visible spinner/messages)
 @st.cache_resource
-def _startup_pipeline():
-    """Initialize pipeline models only once per session."""
+def _background_startup():
+    """Initialize backend quietly on first load."""
     try:
         from ingestion import is_vectorstore_ready  # type: ignore
-        from pipeline import run_ingestion  # type: ignore
         from pipeline.file_watcher import start_file_watcher  # type: ignore
 
-        # Check vectorstore status
+        # Silent vectorstore check (no messages)
         vectorstore_ready = is_vectorstore_ready()
-        
-        # Run ingestion if needed
-        if not vectorstore_ready:
-            logger.warning("⚠️ Vectorstore not detected, building from PDFs...")
-            with st.spinner("🔄 Building knowledge base from PDFs... This may take a few minutes on first startup."):
-                run_ingestion()
+        if vectorstore_ready:
+            logger.info("✅ Vectorstore ready")
         else:
-            logger.info("✅ Vectorstore already ready, skipping ingestion")
+            logger.warning("⚠️ Vectorstore not ready - ingestion needed")
         
-        # Start background file watcher
+        # Start background file watcher silently
         try:
             start_file_watcher()
         except Exception as e:
-            logger.debug(f"File watcher startup: {e}")
-            pass 
-
-        return True
+            logger.debug(f"File watcher: {e}")
+        
+        return vectorstore_ready
     except Exception as e:
         logger.error(f"Startup error: {e}", exc_info=True)
         return False
 
-# Run startup only once
-_startup_pipeline()
+# Run startup in background (no UI blocking)
+vectorstore_ready = _background_startup()
 
 
 # =============================================================================
